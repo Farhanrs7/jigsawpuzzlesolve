@@ -2,27 +2,22 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
 import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
 
-// TODO: Replace with your Firebase project configuration
+// Firebase project configuration retrieved from service account
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY_HERE",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyCyPmg3e9bSS4GAwHv8J6hlB6u7sjEk2o0",
+  authDomain: "jigsawpuzzlesolve.firebaseapp.com",
+  projectId: "jigsawpuzzlesolve",
+  storageBucket: "jigsawpuzzlesolve.firebasestorage.app",
+  messagingSenderId: "496814701803",
+  appId: "1:496814701803:web:cf2bbb83f01cf34cda92ae"
 };
 
-// Check if user has updated Firebase Config
-const isFirebaseConfigured = firebaseConfig.apiKey !== "YOUR_API_KEY_HERE";
-
 let db = null;
-if (isFirebaseConfigured) {
-  try {
-    const app = initializeApp(firebaseConfig);
-    db = getFirestore(app);
-  } catch (e) {
-    console.error("Firebase Initialization Error:", e);
-  }
+try {
+  const app = initializeApp(firebaseConfig);
+  db = getFirestore(app);
+} catch (e) {
+  console.error("Firebase Initialization Error:", e);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -44,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     messageDiv.className = 'form-message';
 
     try {
-      if (isFirebaseConfigured && db) {
+      if (db) {
         // Save to Firebase Firestore under "waitlist" collection
         await addDoc(collection(db, "waitlist"), {
           email: email,
@@ -52,12 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
           source: "landing_page"
         });
       } else {
-        // Fallback demo mode when Firebase config isn't added yet
-        console.warn("Firebase config missing. Saving locally for testing.");
-        const existing = JSON.parse(localStorage.getItem('puzzle_waitlist') || '[]');
-        existing.push({ email, createdAt: new Date().toISOString() });
-        localStorage.setItem('puzzle_waitlist', JSON.stringify(existing));
-        await new Promise(r => setTimeout(r, 600)); // Simulate net delay
+        throw new Error("Firestore not initialized");
       }
 
       // Success UI feedback
