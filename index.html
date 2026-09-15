@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PuzzleSolv AI - Solve Any Jigsaw Puzzle Instantly</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Background Glow FX -->
+  <div class="glow-bg"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="container nav-container">
+      <div class="logo">
+        <span class="logo-icon">🧩</span>
+        <span class="logo-text">PuzzleSolv <span class="badge">AI</span></span>
+      </div>
+      <a href="#notify" class="btn btn-secondary">Get Early Access</a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <div class="pill">✨ AI-Powered Jigsaw Assistant</div>
+        <h1>Stuck on a 1,000-Piece Puzzle? <br><span class="gradient-text">Solve It in Seconds.</span></h1>
+        <p class="subtitle">
+          Stop struggling with missing edge connections or identical sky pieces. Simply snap a picture of your board, and our AI instantly maps out piece placements with precision.
+        </p>
+
+        <!-- Waitlist Form -->
+        <div id="notify" class="notify-card">
+          <h3>Be the first to try PuzzleSolv AI</h3>
+          <p class="notify-sub">Join the VIP waitlist for free early access and launch updates.</p>
+          
+          <form id="waitlist-form" class="notify-form">
+            <div class="input-group">
+              <input type="email" id="user-email" placeholder="Enter your email address" required />
+              <button type="submit" id="submit-btn" class="btn btn-primary">
+                <span>Notify Me</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </button>
+            </div>
+            <div id="form-message" class="form-message"></div>
+          </form>
+          <div class="form-footer">
+            <span>🔒 No spam ever. Unsubscribe anytime.</span>
+            <span>⚡ Limited early tester spots available</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Demo Showcase -->
+      <div class="hero-visual">
+        <div class="visual-wrapper">
+          <div class="visual-badge">Live AI Demo</div>
+          <img src="demo.jpg" alt="PuzzleSolv AI Demo Interface" class="demo-image" />
+          <div class="scan-line"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Grid -->
+  <section class="features">
+    <div class="container">
+      <div class="section-title">
+        <h2>How PuzzleSolv AI Works</h2>
+        <p>3 simple steps to conquer your hardest jigsaw puzzles</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📸</div>
+          <h3>1. Snap Your Puzzle</h3>
+          <p>Take a photo of your loose puzzle pieces and the target box artwork using your phone camera.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>2. Instant AI Matching</h3>
+          <p>Our deep learning algorithm detects edge contours, color matching, and piece alignment in real-time.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🧩</div>
+          <h3>3. Follow Guided Hints</h3>
+          <p>Get interactive step-by-step guidance showing exactly where every piece connects seamlessly.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-content">
+      <p>© 2026 PuzzleSolv AI. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Firebase Integration Script -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>
