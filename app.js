@@ -20,6 +20,9 @@ try {
   console.error("Firebase Initialization Error:", e);
 }
 
+// Helper to add timeout to promises (prevents infinite "Saving..." UI lockup)
+const timeout = (ms) => new Promise((_, reject) => setTimeout(() => reject(new Error('Firebase connection timed out. Check Security Rules.')), ms));
+
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('waitlist-form');
   const emailInput = document.getElementById('user-email');
@@ -39,16 +42,19 @@ document.addEventListener('DOMContentLoaded', () => {
     messageDiv.className = 'form-message';
 
     try {
-      if (db) {
-        // Save to Firebase Firestore under "waitlist" collection
-        await addDoc(collection(db, "waitlist"), {
+      if (!db) {
+        throw new Error("Firestore not initialized");
+      }
+
+      // Save to Firebase Firestore with 8s timeout limit
+      await Promise.race([
+        addDoc(collection(db, "waitlist"), {
           email: email,
           createdAt: serverTimestamp(),
           source: "landing_page"
-        });
-      } else {
-        throw new Error("Firestore not initialized");
-      }
+        }),
+        timeout(8000)
+      ]);
 
       // Success UI feedback
       messageDiv.textContent = "🎉 You're on the list! We'll notify you as soon as early access opens.";
@@ -56,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
       emailInput.value = '';
     } catch (err) {
       console.error("Submission error:", err);
-      messageDiv.textContent = "❌ Failed to submit. Please try again or check back later.";
+      messageDiv.textContent = `❌ ${err.message || "Failed to submit. Please check Firestore security rules."}`;
       messageDiv.className = 'form-message error';
     } finally {
       submitBtn.disabled = false;
